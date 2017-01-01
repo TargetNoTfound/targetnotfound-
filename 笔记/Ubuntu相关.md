@@ -1,6 +1,5 @@
 # ubuntu环境配置
-##密码
-均为lishuang4
+
 ## 网络配置
 桥接无线网卡，**ip=192.168.0.50**
 
@@ -59,6 +58,7 @@
 **用法待续**
 ###仅补全
 [Pydiction](http://www.vim.org/scripts/script.php?script_id=850)
+
 按下`TAB`进行补全
 
 ###删除行首空格
