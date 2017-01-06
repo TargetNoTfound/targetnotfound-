@@ -34,3 +34,10 @@ for i in range(page):
         #删去title中的无效字符
 for keys,values in MovieURLset.items():
     print(keys+" : "+values)
+'''
+将链接存储在文件中 
+'''
+#with open("date.txt","w") as f:
+#    for keys,values in MovieURLset.items():
+#        f.write(values+u'\n')
+#print(f.closed)
