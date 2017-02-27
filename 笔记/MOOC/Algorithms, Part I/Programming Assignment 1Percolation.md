@@ -22,7 +22,7 @@
 故另开辟一个WeightedQuickUnionUF示例用来准确判断`full open site`
 
     OpenSites = new WeightedQuickUnionUF(n * n + 2) ;
-    //所使用的数组由于在sites顶和底另外设置了一个联通分量 所以数组大小为n*n+2, [0]为顶部 [n*n+1]为底部
+    //所使用的数组由于在sites顶和底另外各设置了一个节点 所以数组大小为n*n+2, [0]为顶部 [n*n+1]为底部
     FullOpenSites = new WeightedQuickUnionUF(n * n + 1);
     //为了正确得出full open site 建立另一个并查集 并且删去底节点
 
