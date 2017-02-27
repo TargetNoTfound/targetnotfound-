@@ -28,3 +28,8 @@
 
 ## 详细代码
   [Percolation.java](Percolation.java)
+  [PercolationStats.java](PercolationStats.java)
+  
+
+## 完成度
+![作业提交](PA1.02.png)
