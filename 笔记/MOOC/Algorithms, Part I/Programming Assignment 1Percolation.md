@@ -28,6 +28,7 @@
 
 ## 详细代码
   [Percolation.java](Percolation.java)
+
   [PercolationStats.java](PercolationStats.java)
   
 
