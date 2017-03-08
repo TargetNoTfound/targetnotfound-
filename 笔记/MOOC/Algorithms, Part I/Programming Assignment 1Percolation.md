@@ -27,9 +27,9 @@
     //为了正确得出full open site 建立另一个并查集 并且删去底节点
 
 ## 详细代码
-  [Percolation.java](Percolation.java)
+  [Percolation.java](代码\Percolation.java)
 
-  [PercolationStats.java](PercolationStats.java)
+  [PercolationStats.java](代码\PercolationStats.java)
   
 
 ## 完成度
