@@ -11,7 +11,7 @@
 
 <h3 id="1.1">1.1 create database （创建数据库）
 
-*[CREATE DATABASE (Transact-SQL)](https://msdn.microsoft.com/zh-cn/library/ms176061\(v=sql.105\).aspx) * 
+*[CREATE DATABASE (Transact-SQL)](https://msdn.microsoft.com/zh-cn/library/ms176061\(v=sql.105\).aspx)* 
 
 ```sql
 CREATE DATABASE database_name 
@@ -95,7 +95,8 @@ LOG ON
 
 
 <h3 id="1.2">1.2 alter database (修改数据库)
-*[ALTER DATABASE 文件和文件组选项 (Transact-SQL)](https://msdn.microsoft.com/zh-cn/library/bb522469\(v=sql.105\).aspx) * 
+
+*[ALTER DATABASE 文件和文件组选项 (Transact-SQL)](https://msdn.microsoft.com/zh-cn/library/bb522469\(v=sql.105\).aspx)* 
 ```sql
 
 ALTER DATABASE database_name 
@@ -198,10 +199,25 @@ DBCC SHRINKFILE (DataFile1, 7);
 
 <h3 id="1.4">1.4 drop database (删除数据库)
 
+*[DROP DATABASE (Transact-SQL)](https://msdn.microsoft.com/zh-cn/library/ms178613(v=sql.105).aspx)*
+#### 语法
+```sql
+DROP DATABASE { database_name | database_snapshot_name } [ ,...n ] 
+[;]
+```
+#### 示例
+A. 删除单个数据库
 
+以下示例删除 `Sales` 数据库。
+```sql
+DROP DATABASE Sales;
+```
 
 
 
 <h3 id="1.5">1.5 detach and attach database (分离与附加数据库)
+
+*[分离与附加数据库](https://msdn.microsoft.com/zh-cn/library/ms190794(v=sql.105).aspx)*
+
 
 
