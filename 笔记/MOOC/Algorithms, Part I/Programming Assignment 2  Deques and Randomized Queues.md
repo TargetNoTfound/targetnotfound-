@@ -22,5 +22,5 @@ public class Deque<Item> implements Iterable<Item> {
 取出item的时候注意避免对象游离（即需要将Node中对item的引用置null）
 
 
-##RandomizedQueue 随机队列
+## RandomizedQueue 随机队列
 数据结构采用可变长数组
