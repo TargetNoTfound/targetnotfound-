@@ -1,10 +1,10 @@
 # sqlserver 架构与基本表 
 ## 1. 数据库的创建与管理
 ### [1.1 create database （创建数据库）](#1.1)
-### [1.2 alter database (修改数据库)]
+### [1.2 alter database (修改数据库)](#1.2)
 
 
-<h3 id="1">1.1 create database （创建数据库）
+<h3 id="1.1">1.1 create database （创建数据库）
 
 ```sql
 CREATE DATABASE database_name 
@@ -53,3 +53,5 @@ LOG ON
     指定显式定义用来存储数据库日志的磁盘文件（日志文件）。LOG ON 后跟以逗号分隔的用以定义日志文件的 <filespec> 项列表。如果没有指定 LOG ON，将自动创建一个日志文件，其大小为该数据库的所有数据文件大小总和的 25% 或 512 KB，取两者之中的较大者。此文件放置于默认的日志文件位置。有关此位置的信息，请参阅如何查看或更改数据文件和日志文件的默认位置 (SQL Server Management Studio)。
 
     不能对数据库快照指定 LOG ON。
+
+<h3 id="1.2">1.2 create database （创建数据库）
