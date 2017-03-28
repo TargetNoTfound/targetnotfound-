@@ -222,5 +222,33 @@ DROP DATABASE Sales;
 
 *[分离与附加数据库](https://msdn.microsoft.com/zh-cn/library/ms190794(v=sql.105).aspx)*
 
+#### 分离数据库
+##### 语法
+
+```sql
+sp_detach_db [ @dbname= ] 'database_name' 
+    [ , [ @skipchecks= ] 'skipchecks' ] 
+    [ , [ @keepfulltextindexfile = ] 'KeepFulltextIndexFile' ] 
+```
+
+#### 示例
+以下示例对 `skipchecks` 设置为` True` 的 `AdventureWorks2008R2 `数据库进行分离。
+```sql
+EXEC sp_detach_db 'AdventureWorks2008R2', 'true';
+```
+
+#### 附加数据库
+
+##### 示例
+以下示例分离在示例 D 中创建的数据库 `Archive`，然后使用` FOR ATTACH` 子句附加该数据库。`Archive` 定义为具有多个数据和日志文件。但是，由于文件的位置自创建后没有发生更改，所以只需在 `FOR ATTACH `子句中指定主文件。从 SQL Server 2005 开始，要附加的数据库中包含的所有全文文件也将随数据库一起附加。
+
+```sql
+sp_detach_db Archive;
+GO
+CREATE DATABASE Archive
+      ON (FILENAME = 'D:\SalesData\archdat1.mdf') 
+      FOR ATTACH ;
+GO
+```
 
 
