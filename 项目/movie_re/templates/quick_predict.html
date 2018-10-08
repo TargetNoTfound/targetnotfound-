@@ -1,0 +1,16 @@
+{% if movies %}
+    <h1>为您推荐</h1>
+    {% for movie in movies %}
+        <div class="movie_poster" mid="{{ movie.id }}">
+                <a href="{{ movie.get_absolute_url }}">
+                    <img  src="{{ movie.imgurl }}">
+                </a>
+                <div class="title">
+                <font style="float: bottom">{{ movie.name }}</font>
+                </div>
+
+        </div>
+    {% endfor %}
+{% else %}
+    <h1>{{ warning }}</h1>
+{% endif %}

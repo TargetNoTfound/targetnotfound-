@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>我看过的</title>
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome-all.css' %}">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'compoents/bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css' %}">
+    <script src="{% static 'compoents/bower_components/jquery-bar-rating/jquery.barrating.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+     <style type="text/css">
+        div.movie_poster {
+            width: 200px;
+            height: 400px;
+            text-align: center;
+            align-items: center;
+            float: left;
+            margin: 25px;
+        }
+        div.rating{
+            width: 200px;
+            height: 300px;
+            text-align: center;
+            align-items: center;
+            margin-top: 200px;
+            margin-left:  auto;
+            margin-right: auto;
+            position: relative;
+            left: 300px;
+            bottom: 450px;
+        }
+        div.summary{
+            width: 600px;
+            height: 300px;
+            text-align: center;
+            align-items: center;
+            margin-top: 200px;
+            margin-left:  auto;
+            margin-right: auto;
+            position: relative;
+
+            bottom: 600px;
+        }
+        div.board{
+            width: 1000px;
+            text-align: center;
+            margin: 0 auto;
+            height: 900px;
+
+        }
+        div.stars{
+            margin: 0 auto;
+            width: 200px;
+        }
+         span.highlighted {
+            color: red;
+        }
+    </style>
+    <script type="application/javascript">
+
+        $(function () {
+            $('select.my_rating').barrating({
+                theme: 'fontawesome-stars',
+                showSelectedRating: true,
+                readonly: true,
+            })
+            {% for movie in movies %}
+                $('select#{{ movie.movie.id }}').barrating(
+                'set','{{ movie.rating }}'
+            )
+            {% endfor %}
+        })
+    </script>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="board">
+        <h2>我看过的电影</h2>
+        {% for movie in  movies %}
+            <div class="movie_poster" mid="{{ movie.movie.id }}">
+                <a href="{{movie.movie.get_absolute_url }}">
+                    <img  src="{{ movie.movie.imgurl }}">
+                </a>
+                <div class="title">
+                    <h5>{{ movie.movie.name }}</h5>
+                </div>
+                <div>
+                    <div style="float: left">
+                    <select class="my_rating" id="{{ movie.movie.id }}" >
+                <option value="1" data-html="{{ movie.id }}">1</option>
+                <option value="2" data-html="{{ movie.id }}">2</option>
+                <option value="3" data-html="{{ movie.id }}">3</option>
+                <option value="4" data-html="{{ movie.id }}">4</option>
+                <option value="5" data-html="{{ movie.id }}">5</option>
+            </select>
+                </div>
+                    <div >
+                        <h6>{{ movie.rating }}</h6>
+                    </div>
+                </div>
+            </div>
+
+
+        {% empty %}
+
+
+
+                <p>No results found.</p>
+        {% endfor %}
+        </div>
+        {% if page.has_previous or page.has_next %}
+                <div style="text-align: center; margin: 0px auto;width: 200px">
+                    {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">{% endif %}&laquo;Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+
+</body>
+</html>

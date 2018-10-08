@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.name }}</title>
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome-all.css' %}">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'compoents/bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css' %}">
+    <script src="{% static 'compoents/bower_components/jquery-bar-rating/jquery.barrating.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <style type="text/css">
+        div.movie_poster {
+            width: 200px;
+            height: 300px;
+            text-align: center;
+            align-items: center;
+            margin-top: 200px;
+            margin-left:  auto;
+            margin-right: auto;
+            position: relative;
+            right: 200px;
+        }
+        div.rating{
+            width: 200px;
+            height: 300px;
+            text-align: center;
+            align-items: center;
+            margin-top: 200px;
+            margin-left:  auto;
+            margin-right: auto;
+            position: relative;
+            left: 200px;
+            bottom: 450px;
+        }
+        div.summary{
+            width: 600px;
+            height: 300px;
+            text-align: center;
+            align-items: center;
+            margin-top: 200px;
+            margin-left:  auto;
+            margin-right: auto;
+            position: relative;
+
+            bottom: 600px;
+        }
+        div.board{
+            margin: 0 auto;
+        }
+
+        div.stars{
+            margin: 0 auto;
+            width: 200px;
+        }
+    </style>
+    <script type="application/javascript">
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+        $(function () {
+            $('#avg_rating').barrating({
+                theme: 'fontawesome-stars',
+                showSelectedRating: true,
+                initialRating:{{ avg_rating.avg_rating }},
+                readonly: true,
+            })
+            $('#user_rating').barrating({
+                theme: 'fontawesome-stars',
+                showSelectedRating: true,
+                initialRating:{% if rating %}
+                            {{ rating.rating }}
+                            {% else %}
+                                1
+                            {% endif %},
+                onSelect:function (value,text) {
+                        var rating = {
+                            'mid':text,
+                            'rating':value
+                        };
+                        $.ajax({
+                        url:'{% url 'moive:rating' %}',
+                        type:'POST',
+                        transport:true,
+                        data:rating,
+                        success:function () {
+                            window.location.reload();
+                        }
+                        })
+                }
+            })
+        })
+
+
+    </script>
+</head>
+<body>
+        {% include 'navbar.html' %}
+        <div class="movie_poster">
+            <img src="{{ movie.imgurl }}">
+            <font>{{ movie.name }}</font>
+
+        </div>
+        <div class="rating">
+            <h2>评分</h2>
+            <select  id="avg_rating"  style="width: 300px">
+                <option value="1" data-html="{{ movie.id }}">1</option>
+                <option value="2" data-html="{{ movie.id }}">2</option>
+                <option value="3" data-html="{{ movie.id }}">3</option>
+                <option value="4" data-html="{{ movie.id }}">4</option>
+                <option value="5" data-html="{{ movie.id }}">5</option>
+            </select>
+            <font>平均评分:{{ avg_rating.avg_rating }}</font>
+            <select  id="user_rating"  style="width: 300px">
+                <option value="1" data-html="{{ movie.id }}">1</option>
+                <option value="2" data-html="{{ movie.id }}">2</option>
+                <option value="3" data-html="{{ movie.id }}">3</option>
+                <option value="4" data-html="{{ movie.id }}">4</option>
+                <option value="5" data-html="{{ movie.id }}">5</option>
+            </select>
+            <font>您的评分:{% if rating %}
+                            {{ rating.rating }}
+                            {% else %}
+                            尚未评分
+                            {% endif %}
+            </font>
+        </div>
+        <div class="summary">
+            <h2>剧情简介</h2>
+            <font>{{ movie.summary }}</font>
+        </div>
+
+
+</body>
+</html>

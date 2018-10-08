@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>快速推荐</title>
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome-all.css' %}">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'compoents/bower_components/jquery-bar-rating/dist/themes/fontawesome-stars.css' %}">
+    <script src="{% static 'compoents/bower_components/jquery-bar-rating/jquery.barrating.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="application/javascript">
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+       var page = 0
+     function broad_load() {
+
+         $.get(
+             "{% url 'moive:quick_rating' %}",
+             {
+                 'page':page,
+                 'uid':{{ user.id }}
+             },
+             function (ret) {
+                 $('div.board').html(ret)
+                 $('select.rating').barrating({
+                     theme: 'fontawesome-stars',
+                     showSelectedRating:true,
+                     initialRating:1,
+                     onSelect:function (value,text) {
+                        var rating = {
+                            'mid':text,
+                            'rating':value
+                        };
+                        $.ajax({
+                        url:'{% url 'moive:rating' %}',
+                        type:'POST',
+                        transport:true,
+                        data:rating,
+                        success:function () {
+
+                        }
+                    })
+                     }
+                 });
+
+             }
+                )
+            page++
+     }
+     function broad_load_predict(){
+           $('div.load').css('display','none')
+           $('#predict').removeClass("btn btn-primary")
+           $('#predict').addClass('fa fa-circle-o-notch fa-spin')
+           $.get("{% url 'moive:quick_predict' %}",
+               {},
+                function (ret) {
+                    $('div.board').html(ret)
+
+                    $('div.quick_pre').css('display','none')
+                })
+     }
+     $(document).ready(function () {
+         broad_load()
+         $('div.board').on("")
+     })
+    </script>
+    <style type="text/css">
+        div.movie_poster {
+            width: 200px;
+            height: 300px;
+            text-align: center;
+            align-items: center;
+            float: left;
+            margin: 25px;
+        }
+        div.board{
+            width: 1000px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        div.quick_pre{
+            margin: 0px auto;
+            position: absolute;
+            text-align: center;
+
+            top: 80%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="board">
+
+
+    </div>
+    <div class="load" style="float: left ">
+        <button type="button" class="btn btn-primary" onclick="broad_load()">换一批</button>
+    </div>
+    <div class="quick_pre">
+        <button type="button" id="predict" class="btn btn-dark" onclick="broad_load_predict()">快速推荐</button>
+    </div>
+
+</body>
+</html>

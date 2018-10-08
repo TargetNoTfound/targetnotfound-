@@ -1,0 +1,46 @@
+<div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'moive:home' %}">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'moive:mylist' %}">我看过的 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'moive:quick' %}">快速推荐</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'moive:recomment' %}">精确推荐</a>
+        </li>
+      </ul>
+         <ul class="navbar-nav mr-auto" >
+             {% if user.is_authenticated %}
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">{{ user.username }} <span class="sr-only">(current)</span></a>
+                </li>
+                 <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'logout' %}">注销登录 <span class="sr-only">(current)</span></a>
+                </li>
+                 <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'password_change' %}">修改密码 <span class="sr-only">(current)</span></a>
+                </li>
+             {% else %}
+                 <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'login' %}">登录<span class="sr-only">(current)</span></a>
+                </li>
+                 <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'moive:register' %}">注册<span class="sr-only">(current)</span></a>
+                </li>
+             {% endif %}
+         </ul>
+      <form class="form-inline" method="get" action="{% url 'moive:haystack_search' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="搜索" name="q">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">搜索</button>
+      </form>
+    </div>
+  </nav>
+    </div>

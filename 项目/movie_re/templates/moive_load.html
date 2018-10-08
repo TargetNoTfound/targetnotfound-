@@ -1,0 +1,18 @@
+{% for movie in movies %}
+    <div class="movie_poster" mid="{{ movie.id }}">
+            <a href="{{ movie.get_absolute_url }}">
+                <img  src="{{ movie.imgurl }}">
+            </a>
+            <div class="title">
+            <font style="float: bottom">{{ movie.name }}</font>
+            </div>
+
+            <select class="rating" id="{{ movie.id }}" >
+                <option value="1" data-html="{{ movie.id }}">1</option>
+                <option value="2" data-html="{{ movie.id }}">2</option>
+                <option value="3" data-html="{{ movie.id }}">3</option>
+                <option value="4" data-html="{{ movie.id }}">4</option>
+                <option value="5" data-html="{{ movie.id }}">5</option>
+            </select>
+    </div>
+{% endfor %}
